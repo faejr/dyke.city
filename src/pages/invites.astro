@@ -1,0 +1,33 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getInviteCodes, createInviteCode } from "../inviteCode";
+
+if (Astro.request.method === "POST") {
+  await createInviteCode();
+}
+const inviteCodes = await getInviteCodes();
+---
+
+<Layout title="dyke.city - invite codes">
+  <main>
+    <img src="/assets/logo.png" />
+    <table id="codes">
+      <thead>
+        <th>Code</th>
+        <th>Used</th>
+        <th></th>
+      </thead>
+      {
+        inviteCodes.map((inviteCode) => (
+          <tr>
+            <td>{inviteCode.code}</td>
+            <td>{inviteCode.used ? "yes" : "no"}</td>
+          </tr>
+        ))
+      }
+    </table>
+    <form method="post">
+      <input type="submit" id="createCode" value="Generate new code" />
+    </form>
+  </main>
+</Layout>

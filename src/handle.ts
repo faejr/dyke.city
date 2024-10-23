@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
 
@@ -32,7 +31,6 @@ export const createHandle = async ({
   if (!firstInviteCode) {
     throw new Error("Invalid invite code", { cause: "inviteCode" });
   }
-  console.log(bskyDid);
 
   const data = await prisma.handle.create({
     data: {
@@ -54,10 +52,10 @@ export const createHandle = async ({
   }
 };
 
-export const createInviteCode = async () => {
-  return await prisma.inviteCode.create({
-    data: {
-      code: uuidv4(),
-    },
-  });
+export const getHandles = async () => {
+  return await prisma.handle.findMany();
+};
+
+export const deleteHandle = async (id: number) => {
+  return await prisma.handle.delete({ where: { id } });
 };

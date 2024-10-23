@@ -1,0 +1,39 @@
+---
+import { getHandles, deleteHandle } from "../handle";
+import Layout from "../layouts/Layout.astro";
+
+if (Astro.request.method === "POST") {
+  const data = await Astro.request.formData();
+  const id = data.get("id");
+  if (id) {
+    await deleteHandle(parseInt(id, 10));
+  }
+}
+const handles = await getHandles();
+---
+
+<Layout title="dyke.city - handles">
+  <main>
+    <img src="/assets/logo.png" />
+    <table id="codes">
+      <thead>
+        <th>Bsky handle</th>
+        <th>Requsted handle</th>
+      </thead>
+      {
+        handles.map((handle) => (
+          <tr>
+            <td>{handle.bskyHandle}</td>
+            <td>{handle.requestedHandle}</td>
+            <td>
+              <form method="post">
+                <input type="hidden" name="id" value={handle.id} />
+                <input type="submit" value="Delete" />
+              </form>
+            </td>
+          </tr>
+        ))
+      }
+    </table>
+  </main>
+</Layout>

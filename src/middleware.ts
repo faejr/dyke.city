@@ -2,7 +2,10 @@ import { defineMiddleware } from "astro/middleware";
 const { ADMIN_USERNAME, ADMIN_PASSWORD } = process.env;
 
 export const onRequest = defineMiddleware((context, next) => {
-  if (context.url.pathname !== "/new-invite") {
+  if (
+    context.url.pathname !== "/invites" &&
+    context.url.pathname !== "/handles"
+  ) {
     return next();
   }
   const basicAuth = context.request.headers.get("authorization");
