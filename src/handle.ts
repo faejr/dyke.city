@@ -34,9 +34,9 @@ export const createHandle = async ({
 
   const data = await prisma.handle.create({
     data: {
-      bskyHandle,
+      bskyHandle: bskyHandle.toLowerCase(),
       bskyDid,
-      requestedHandle,
+      requestedHandle: requestedHandle.toLowerCase(),
       inviteCodeId: firstInviteCode.id,
     },
   });
