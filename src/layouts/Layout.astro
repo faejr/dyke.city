@@ -53,10 +53,19 @@ const { title } = Astro.props;
   }
   .github {
     display: block;
-    color: #fff;
+    color: #080808;
     margin-top: 1em;
   }
   .github:hover {
-    color: #c9c9c9;
+    color: #484848;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .github {
+      color: #fff;
+    }
+    .github:hover {
+      color: #c9c9c9;
+    }
   }
 </style>
