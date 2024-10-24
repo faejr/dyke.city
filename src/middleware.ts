@@ -11,7 +11,7 @@ export const onRequest = defineMiddleware((context, next) => {
   const basicAuth = context.request.headers.get("authorization");
 
   if (basicAuth && ADMIN_USERNAME && ADMIN_PASSWORD) {
-    const authValue = basicAuth.split(" ")[1] ?? "username:password";
+    const authValue = basicAuth.split(" ")[1] ?? "dXNlcm5hbWU6cGFzc3dvcmQ=";
 
     const [username, pwd] = atob(authValue).split(":");
 
